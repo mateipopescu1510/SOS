@@ -1,0 +1,6 @@
+materials/
+.claude
+CLAUDE.md
+data/
+plots/
+__pycache__/
