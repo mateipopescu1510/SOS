@@ -8,7 +8,6 @@ OCCLUSION_FRAC = 0.04
 OOD_FRAC = 0.04
 OCCLUSION_SIZE = 10
 
-# similar-looking classes to swap: T-shirt/Shirt, Pullover/Coat, Sandal/Sneaker
 SWAP_PAIRS = [(0, 6), (2, 4), (5, 7)]
 
 DATA_DIR = "data"

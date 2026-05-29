@@ -19,8 +19,8 @@ def tournament(fits, size, rng):
 
 
 def crossover(a, b, rng):
-    mask = rng.random(a.shape) < 0.5
-    return np.where(mask, a, b)
+    mask = rng.random(a.shape[0]) < 0.5
+    return np.where(mask[:, None], a, b)
 
 
 def mutate(child, rng):
