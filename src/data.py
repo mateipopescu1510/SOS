@@ -50,9 +50,11 @@ def inject_errors(images, labels, mnist, rng):
         labels[i] = rng.choice([c for c in range(10) if c != labels[i]])
         mask[i], kind[i] = True, "flip"
 
-    for i in take(int(config.NOISE_FRAC * n)):
-        images[i] = np.clip(images[i] + rng.normal(0, config.NOISE_STD, 784), 0, 1)
-        mask[i], kind[i] = True, "noise"
+    s = config.OCCLUSION_SIZE
+    for i in take(int(config.OCCLUSION_FRAC * n)):
+        y, x = rng.integers(0, 28 - s + 1, 2)
+        images[i].reshape(28, 28)[y:y + s, x:x + s] = 0
+        mask[i], kind[i] = True, "occlusion"
 
     ood = take(int(config.OOD_FRAC * n))
     picks = mnist[rng.choice(len(mnist), len(ood), replace=False)]

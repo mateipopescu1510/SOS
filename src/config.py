@@ -4,9 +4,9 @@ PCA_DIMS = 50
 
 LABEL_FLIP_FRAC = 0.04
 CLASS_SWAP_FRAC = 0.04
-NOISE_FRAC = 0.04
+OCCLUSION_FRAC = 0.04
 OOD_FRAC = 0.04
-NOISE_STD = 0.5
+OCCLUSION_SIZE = 10
 
 # similar-looking classes to swap: T-shirt/Shirt, Pullover/Coat, Sandal/Sneaker
 SWAP_PAIRS = [(0, 6), (2, 4), (5, 7)]
@@ -27,3 +27,5 @@ TOURNAMENT_SIZE = 3
 MUTATION_RATE = 0.05
 MUTATION_STD = 0.5
 ELITES = 2
+
+FLAG_FRACTION = 0.16
