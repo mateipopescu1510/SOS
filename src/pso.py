@@ -10,6 +10,7 @@ class PSOResult:
     centroids: np.ndarray   # (K, D) best centroids found
     fitness: float          # SSE of those centroids
     history: np.ndarray     # gbest fitness per iteration
+    centroids_history: np.ndarray  # (iters, K, D) gbest centroids per iteration
 
 
 def sse(X, centroids):
@@ -32,6 +33,7 @@ def run_pso(X, rng=None):
     gbest_fit = float(pbest_fit[g])
 
     history = np.empty(iters)
+    centroids_history = np.empty((iters, K, D))
     for t in range(iters):
         w = config.W_MAX - (config.W_MAX - config.W_MIN) * t / (iters - 1)
         r1 = rng.random(pos.shape)
@@ -49,8 +51,9 @@ def run_pso(X, rng=None):
             gbest_fit = float(pbest_fit[g])
             gbest_pos = pbest_pos[g].copy()
         history[t] = gbest_fit
+        centroids_history[t] = gbest_pos
 
-    return PSOResult(gbest_pos, gbest_fit, history)
+    return PSOResult(gbest_pos, gbest_fit, history, centroids_history)
 
 
 if __name__ == "__main__":

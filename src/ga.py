@@ -11,6 +11,7 @@ class GAResult:
     centroids: np.ndarray   # (K, D) best centroids found
     fitness: float          # SSE of those centroids
     history: np.ndarray     # best fitness per generation
+    centroids_history: np.ndarray  # (gens, K, D) best centroids per generation
 
 
 def tournament(fits, size, rng):
@@ -37,6 +38,7 @@ def run_ga(X, rng=None):
     fits = np.array([sse(X, ind) for ind in pop])
 
     history = np.empty(gens)
+    centroids_history = np.empty((gens, K, D))
     for t in range(gens):
         order = fits.argsort()
         new_pop = [pop[i] for i in order[:config.ELITES]]
@@ -47,9 +49,10 @@ def run_ga(X, rng=None):
         pop = np.array(new_pop)
         fits = np.array([sse(X, ind) for ind in pop])
         history[t] = fits.min()
+        centroids_history[t] = pop[fits.argmin()]
 
     best = fits.argmin()
-    return GAResult(pop[best], float(fits[best]), history)
+    return GAResult(pop[best], float(fits[best]), history, centroids_history)
 
 
 if __name__ == "__main__":
