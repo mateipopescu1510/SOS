@@ -14,17 +14,18 @@ def main():
     pso_f1 = metrics(anomaly_scores(d.X, pso.centroids), d.mask, d.kind)["f1"]
     ga_f1 = metrics(anomaly_scores(d.X, ga.centroids), d.mask, d.kind)["f1"]
 
+    n = len(d.X)
     plt.figure(figsize=(8, 4.5))
-    plt.plot(pso.history, label=f"PSO  F1={pso_f1:.3f}  SSE={pso.fitness:.0f}")
-    plt.plot(ga.history, label=f"GA   F1={ga_f1:.3f}  SSE={ga.fitness:.0f}")
+    plt.plot(pso.history / n, label=f"PSO  F1={pso_f1:.3f}  final={pso.fitness/n:.2f}")
+    plt.plot(ga.history / n, label=f"GA   F1={ga_f1:.3f}  final={ga.fitness/n:.2f}")
     plt.xlabel("iteration / generation")
-    plt.ylabel("best SSE")
+    plt.ylabel("mean squared distance per point")
     plt.legend()
     plt.tight_layout()
     plt.savefig("plots/convergence.png", dpi=120)
 
-    print(f"PSO  F1={pso_f1:.3f}  SSE={pso.fitness:.0f}")
-    print(f"GA   F1={ga_f1:.3f}  SSE={ga.fitness:.0f}")
+    print(f"PSO  F1={pso_f1:.3f}  mean sq dist={pso.fitness/n:.2f}")
+    print(f"GA   F1={ga_f1:.3f}  mean sq dist={ga.fitness/n:.2f}")
     print("saved plots/convergence.png")
 
 
