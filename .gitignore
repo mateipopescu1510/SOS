@@ -4,3 +4,14 @@ CLAUDE.md
 data/
 plots/
 __pycache__/
+*.json
+node_modules/
+*.log
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+.vscode/
+*.gz
